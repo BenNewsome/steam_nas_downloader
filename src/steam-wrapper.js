@@ -4,10 +4,21 @@
 //
 
 
+const yaml = require('js-yaml');
+const fs = require('fs')
+
+
 function SteamWrapper() {}
 
 SteamWrapper.prototype.getPlainTextCredentials = function(configFile) {
-    return {"user":"user", "password":"password"}
+    try {
+        const config = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'));
+        const indentedJson = JSON.stringify(config, null, 4);
+        console.log(indentedJson);
+        return config;
+    } catch (e) {
+        console.log(e)
+    }
 };
 
 module.exports=SteamWrapper;
