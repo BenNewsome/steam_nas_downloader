@@ -20,7 +20,6 @@ SteamWrapper.prototype.getPlainTextCredentials = function(configFile) {
     try {
         const config = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'));
         const indentedJson = JSON.stringify(config, null, 4);
-        console.log(indentedJson);
         return config;
     } catch (e) {
         console.log(e)
@@ -67,7 +66,6 @@ SteamWrapper.prototype.createSteamRunScriptText = function(args) {
         "app_update " + app_id + " validate\n" +
         "quit";
 
-    console.log(script_template)
     return script_template;
 };
 
