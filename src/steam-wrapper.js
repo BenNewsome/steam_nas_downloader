@@ -58,13 +58,13 @@ SteamWrapper.prototype.createSteamRunScriptText = function(args) {
     var app_id = args["app_id"];
 
     var script_template =
-        "@ShutdownOnFailedCommand 1\n" +
-        "@NoPromptForPassword 1\n" +
-        "@sSteamCmdForcePlatformType " + platform + "\n" +
-        "login " + username +" " + password + "\n" +
-        "force_install_dir " + install_location + "\n"
-        "app_update " + app_id + " validate\n" +
-        "quit";
+        "steamcmd " +
+        "+@NoPromptForPassword 1 " +
+        "+@sSteamCmdForcePlatformType " + platform + " " +
+        "+login " + username +" " + password + " " +
+        "+force_install_dir " + install_location + " " +
+        "+app_update " + app_id + " validate " +
+        "+quit";
 
     return script_template;
 };
