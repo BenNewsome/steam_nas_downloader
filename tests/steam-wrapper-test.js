@@ -7,7 +7,7 @@ var SteamWrapper = require('./../src/steam-wrapper')
 describe('ReadUserCredentials', function() {
     it('getUserConfig(example) should return {"user"="user", "password"="password"} if example_config.yaml is passed in', function() {
         var steamWrapper = new SteamWrapper();
-        testCredentials = steamWrapper.getPlainTextCredentials('example_config.yaml');
+        testCredentials = steamWrapper.getConfig('example_config.yaml');
         expect(testCredentials).to.eql({"user":"user", "password":"password"});
     });
 });
@@ -19,7 +19,7 @@ describe('CreateSteamRunScriptText', function() {
             "steamcmd +@NoPromptForPassword 1 +@sSteamCmdForcePlatformType linux +login user password " + 
             "+force_install_dir ~/steam_temp +app_update 346900 validate +quit"
         var steamWrapper = new SteamWrapper();
-        steamRunScriptText = steamWrapper.createSteamRunScriptText(script_args);
+        steamRunScriptText = steamWrapper.getSteamCommand(script_args);
         expect(steamRunScriptText).to.eql(expected_output);
     });
     it('createSteamRunScriptText(args) should fail if missing a required arg', function() {

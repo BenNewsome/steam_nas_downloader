@@ -16,7 +16,7 @@ function SteamWrapper() {}
 //   configFile: The location of the credentials file
 // Returns:
 //   {user:###, password:####} The username and password in a data object. 
-SteamWrapper.prototype.getPlainTextCredentials = function(configFile) {
+SteamWrapper.prototype.getConfig = function(configFile) {
     try {
         const config = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'));
         const indentedJson = JSON.stringify(config, null, 4);
@@ -33,7 +33,7 @@ SteamWrapper.prototype.getPlainTextCredentials = function(configFile) {
 // Returns
 //   A string of the script
 //
-SteamWrapper.prototype.createSteamRunScriptText = function(args) {
+SteamWrapper.prototype.getSteamCommand = function(args) {
 
     // Ensure all args are defined.
     var args_ = ["user", "password", "platform", "install_location", "app_id"];
@@ -48,8 +48,6 @@ SteamWrapper.prototype.createSteamRunScriptText = function(args) {
     if (!args_.every(isDefined)) {
         throw Error('Missing a required parameter for the createSteamRunScriptText');
     };
-
-
 
     var username = args["user"];
     var password = args["password"];
@@ -67,6 +65,24 @@ SteamWrapper.prototype.createSteamRunScriptText = function(args) {
         "+quit";
 
     return script_template;
+};
+
+const child_process = require('child_process');
+
+// Call the steamCMD from the program and pass back updates.
+SteamWrapper.prototype.downloadGame = function(game_args) {
+    args = {};
+    args["user"] = "user";
+    args["password"] = "password";
+    args["platform"] = game_args["linux"];
+    args["install_location"] = "steamApps";
+    args["app_id"] = game_args["app_id"];
+
+    var steamCommand = this.getSteamCommand(args);
+
+    child_process.execSync(
+        steamCommand, {stdio: [0, 1, 2]}
+    );
 };
 
 
