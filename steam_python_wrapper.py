@@ -45,13 +45,12 @@ def get_arguments():
     """
     logger.info("Getting the arguments")
 
-    with open("credentials.json", "r") as credential_file:
+    with open("~/.config/steam_credentials.json", "r") as credential_file:
         credentials = json.load(credential_file)
-#    credentials = json.loads("credentials.json")
 
     args = {
         "app_id": "271590",
-        "install_location": "/mnt/nfs3/steam/SteamLibrary/",
+        "install_location": "/mnt/storage/steam/SteamLibrary/",
         "platform": "windows",
         "username": credentials["username"],
         "password": credentials["password"]
