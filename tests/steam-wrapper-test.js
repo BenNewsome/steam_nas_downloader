@@ -12,3 +12,17 @@ describe('ReadUserCredentials', function() {
     });
 });
 
+describe('CreateSteamRunScriptText', function() {
+    it('createSteamRunScriptText(args) should return a string if all the correct args are passed in', function() {
+        var script_args = {"user": "user", 'password': 'password', 'platform': 'linux', 'install_location': '~/steam_temp', 'app_id': '271590'};
+        var expected_output = 
+            "@ShutdownOnFailedCommand 1\n" +
+            "@NoPromptForPassword 1\n" +
+            "@sSteamCmdForcePlatformType linux\n" +
+            "login user password\n" +
+            "force_install_dir ~/steam_temp\n";
+        var steamWrapper = new SteamWrapper();
+        steamRunScriptText = steamWrapper.createSteamRunScriptText(script_args);
+        expect(steamRunScriptText).to.eql(expected_output);
+    });
+});
