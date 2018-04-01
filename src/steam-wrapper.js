@@ -35,6 +35,23 @@ SteamWrapper.prototype.getPlainTextCredentials = function(configFile) {
 //   A string of the script
 //
 SteamWrapper.prototype.createSteamRunScriptText = function(args) {
+
+    // Ensure all args are defined.
+    var args_ = ["user", "password", "platform", "install_location", "app_id"];
+    function isDefined(value) {
+        if (value in args) {
+            return true;
+        } else {
+            throw Error('Missing ' + value + ' from the args list to create the steam run script.');
+            return false;
+        };
+    };
+    if (!args_.every(isDefined)) {
+        throw Error('Missing a required parameter for the createSteamRunScriptText');
+    };
+
+
+
     var username = args["user"];
     var password = args["password"];
     var platform = args["platform"];

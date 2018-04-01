@@ -26,3 +26,12 @@ describe('CreateSteamRunScriptText', function() {
         expect(steamRunScriptText).to.eql(expected_output);
     });
 });
+
+
+describe('CreateSteamRunScriptText', function() {
+    it('createSteamRunScriptText(args) should fail if missing a required arg', function() {
+        var script_args = {"user": "user"};
+        var steamWrapper = new SteamWrapper();
+        expect(() => steamWrapper.createSteamRunScriptText(script_args) ).to.throw( Error );
+    });
+});
