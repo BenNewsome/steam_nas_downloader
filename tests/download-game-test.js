@@ -6,7 +6,7 @@
 
 var chai = require('chai');
 var expect = chai.expect;
-var SteamWrapper = require('./../src/steam-wrapper')
+var SteamWrapper = require('./../src/steam')
 
 // Download a game using the steam commands and ensure the game is downloaded.
 describe('DownloadAdventureCapatalist', function() {

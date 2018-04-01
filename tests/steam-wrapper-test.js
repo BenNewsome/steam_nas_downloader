@@ -2,7 +2,7 @@
 
 var chai = require('chai');
 var expect = chai.expect;
-var SteamWrapper = require('./../src/steam-wrapper')
+var SteamWrapper = require('./../src/steam')
 
 describe('ReadUserCredentials', function() {
     it('getUserConfig(example) should return {"user"="user", "password"="password"} if example_config.yaml is passed in', function() {
