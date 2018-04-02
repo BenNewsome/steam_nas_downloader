@@ -3,7 +3,7 @@
 
 var Steam = require('./src/steam')
 var express = require('express')
-var ws = require('./ws')
+var ws = require('./src/server')
 
 var port = 3000
 // todo: specify the port in the config
@@ -11,7 +11,7 @@ var port = 3000
 var app = express()
 
 app.get('/', function (request, response) {
-    response.sendfile(__dirname + '/ws.html');
+    response.sendfile(__dirname + '/web/ws.html');
 })
 
 app.listen(port, function () {

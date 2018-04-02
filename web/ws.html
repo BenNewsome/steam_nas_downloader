@@ -1,0 +1,46 @@
+<h1> Steam nas downloader </h1>
+
+<script>
+    var ws = new WebSocket('ws://localhost:8090');
+
+    // event emmited when connected
+    ws.onopen = function () {
+        console.log("websocekt is connected");
+
+        // sending a send event to websocket server
+        ws.send("connected");
+    }
+
+    // event emmited when receiving message
+    ws.onmessage = function (ev) {
+        console.log(ev);
+    }
+
+    function startGameDownloadById () {
+        var platform = document.getElementById("systemPlatformDD").value;
+        var app_id = document.getElementById("app_id").value;
+        var download_info = {
+            'type': 'download',
+            'platform':platform,
+            'app_id':app_id
+        };
+        ws.send(download_info);
+        console.log("Sending download request for the following game:");
+        console.log(download_info);
+    };
+</script>
+
+<form>
+    Steam App ID:
+    <input type="text" id="app_id">
+</form>
+
+
+<!-- The drop down to select the platform -->
+<select id="systemPlatformDD">
+    <option value="linux">linux</option>
+    <option value="windows">windows</option>
+</select>
+
+
+<input id="manualDownload" type="button" value="Start Download" onclick="startGameDownloadById();" />
