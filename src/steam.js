@@ -8,7 +8,9 @@ const yaml = require('js-yaml');
 const fs = require('fs')
 
 
-function SteamWrapper() {}
+function SteamWrapper() {
+    console.log("Creating a new steam wrapper instance")
+};
 
 // Get a set of plain text credentials from a yaml file.
 //
@@ -69,6 +71,15 @@ SteamWrapper.prototype.getSteamCommand = function(args) {
 
 const child_process = require('child_process');
 
+String.prototype.format = function() {
+      a = this;
+      for (k in arguments) {
+              a = a.replace("{" + k + "}", arguments[k])
+            }
+      return a
+}
+
+
 // Call the steamCMD from the program and pass back updates.
 SteamWrapper.prototype.downloadGame = function(game_args) {
     args = {};
@@ -77,6 +88,13 @@ SteamWrapper.prototype.downloadGame = function(game_args) {
     args["platform"] = game_args["linux"];
     args["install_location"] = "steamApps";
     args["app_id"] = game_args["app_id"];
+
+    if (! typeof args["app_id"] == 'number') {
+        throw Error('Recieved a app_id that is not a number. This is probably a code injection attempt.')
+    };
+
+    console.log("something");
+    console.log("Starting download of {0} for {1}".format(args["app_id"], args["platform"]));
 
     var steamCommand = this.getSteamCommand(args);
 

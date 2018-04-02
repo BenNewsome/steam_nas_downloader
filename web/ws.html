@@ -24,7 +24,7 @@
             'platform':platform,
             'app_id':app_id
         };
-        ws.send(download_info);
+        ws.send( JSON.stringify(download_info));
         console.log("Sending download request for the following game:");
         console.log(download_info);
     };
@@ -32,7 +32,7 @@
 
 <form>
     Steam App ID:
-    <input type="text" id="app_id">
+    <input type="number" id="app_id">
 </form>
 
 
